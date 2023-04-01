@@ -1,5 +1,5 @@
 import { Bars3Icon, GiftIcon } from "@heroicons/react/24/solid";
-export default function TopBar() {
+const TopBar = () => {
   return (
     <div className="hide-when-print sticky top-0 z-30 bg-white dark:bg-zinc-700 backdrop-blur">
       <div className="flex lg:hidden absolute left-1 top-0 bottom-0 items-center justify-center">
@@ -20,3 +20,5 @@ export default function TopBar() {
     </div>
   );
 }
+
+export default TopBar;

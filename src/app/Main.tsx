@@ -1,5 +1,5 @@
 import MainBody from "../components/MainBody";
-import TopBar from "./TopBar";
+import TopBar from "../components/TopBar";
 
 export default function Main() {
   return (

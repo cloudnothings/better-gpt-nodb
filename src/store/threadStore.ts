@@ -80,17 +80,23 @@ const initialThread = {
 } as Thread;
 export const initialState = {
   currentThread: initialThread,
+  threads: [],
 };
 
 interface ThreadStore {
   currentThread: Thread | null;
   setCurrentThread: (value: Thread | null) => void;
+  threads: Thread[];
+  setThreads: (value: Thread[]) => void;
+  resetState: () => void;
 }
 
 const useThreadStore = create<ThreadStore>((set) => ({
   ...initialState,
   currentThread: initialState.currentThread,
   setCurrentThread: (value: Thread | null) => set({ currentThread: value }),
+  threads: initialState.threads,
+  setThreads: (value: Thread[]) => set({ threads: value }),
   resetState: () => set(initialState),
 }));
 

@@ -7,6 +7,9 @@ import useModalStore from "~/store/modalStore"
 const GetStartedAPIKeyButton = () => {
   const apiKey = useKeyStore(state => state.apiKey)
   const setApiKeyModal = useModalStore(state => state.setApiKeyModal)
+  if (apiKey) {
+    return null
+  }
   return (
     <div className="mt-10 ">
       <div className="text-sm mt-10 text-center space-y-4">

@@ -11,7 +11,5 @@ export default function Warnings() {
       </div>
     )
   }
-  return (
-    <></>
-  )
+  return null
 }
