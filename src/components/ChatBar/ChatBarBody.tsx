@@ -1,4 +1,4 @@
-import ChatBarInput from "./ChatBarInputs";
+import ChatBarInputs from "./ChatBarInputs";
 import PromptSettingsBar from "./PromptSettingsBar";
 
 const ChatBarBody = () => {
@@ -8,7 +8,7 @@ const ChatBarBody = () => {
         <div className="flex items-end justify-center space-x-2 mb-2">
           <div className="w-full space-y-2 pt-2">
             <PromptSettingsBar />
-            <ChatBarInput />
+            <ChatBarInputs />
           </div>
         </div>
       </div>

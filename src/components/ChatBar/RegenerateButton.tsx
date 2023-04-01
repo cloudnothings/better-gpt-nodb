@@ -1,5 +1,3 @@
-'use client';
-
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/solid";
 import FeatureButton from "../Buttons/FeatureButton";
 
