@@ -1,14 +1,33 @@
 'use client';
 
+import useApi from "~/hooks/useApi";
 import useChatStore from "~/store/chatStore";
-
+import useKeyStore from "~/store/keyStore";
+import useThreadStore from "~/store/threadStore";
 
 const ChatBarInput = () => {
   const { message, setMessage, isLoading } = useChatStore()
+  const apiKey = useKeyStore(state => state.apiKey)
+  const currentThread = useThreadStore(state => state.currentThread)
+  const { mutate } = useApi()
+
   const sendMessage = () => {
-    if (message) {
-      console.log('Sending message...')
+    if (message.trim() === '') {
+      return
     }
+    if (currentThread) {
+      mutate({
+        apiKey,
+        messages: [
+          ...currentThread.messages,
+          {
+            role: 'user',
+            content: message,
+          }],
+        model: currentThread.model.id,
+      })
+    }
+    setMessage('')
   }
 
   return (
