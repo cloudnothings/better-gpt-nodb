@@ -10,7 +10,7 @@ export const initialState = {
     maxTokens: 4096,
     usageCost: 0.002,
     trainingData: "Up to Sep 2021",
-  },
+  } as Model,
   models: [
     {
       name: "GPT-3.5-TURBO",
@@ -78,6 +78,23 @@ export const initialState = {
   width: 0,
 };
 
+const loadState = () => {
+  const state = initialState;
+  const defaultModel = localStorage.getItem("defaultModel");
+  if (defaultModel) {
+    const modelId = defaultModel;
+    const model = state.models.find((m) => m.id === modelId);
+    if (model) {
+      state.defaultModel = model;
+    }
+  }
+  const width = localStorage.getItem("width");
+  if (width) {
+    state.width = parseInt(width);
+  }
+  return state;
+};
+
 interface AppStore {
   defaultModel: Model;
   models: Model[];
@@ -85,6 +102,7 @@ interface AppStore {
   setDefaultModel: (model: Model) => void;
   setModels: (models: Model[]) => void;
   setWidth: (width: number) => void;
+  loadState: () => void;
 }
 
 const useAppStore = create<AppStore>((set) => ({
@@ -95,6 +113,7 @@ const useAppStore = create<AppStore>((set) => ({
   setDefaultModel: (model: Model) => set({ defaultModel: model }),
   width: initialState.width,
   setWidth: (width: number) => set({ width }),
+  loadState: () => set(loadState()),
 }));
 
 export default useAppStore;

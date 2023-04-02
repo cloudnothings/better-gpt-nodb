@@ -1,19 +1,10 @@
 'use client';
 
 import { KeyIcon } from "@heroicons/react/24/solid"
-import { useEffect } from "react";
 import useKeyStore from "~/store/keyStore";
 import useModalStore from "~/store/modalStore"
 
 const GetStartedAPIKeyButton = () => {
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const apiKey = localStorage.getItem('apiKey')
-      if (apiKey) {
-        useKeyStore.getState().setApiKey(apiKey)
-      }
-    }
-  }, [])
   const apiKey = useKeyStore(state => state.apiKey)
   const setApiKeyModal = useModalStore(state => state.setApiKeyModal)
   if (apiKey) {

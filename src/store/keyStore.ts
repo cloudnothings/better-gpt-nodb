@@ -6,6 +6,19 @@ export const initialState = {
   cost: 0,
 };
 
+const loadState = () => {
+  const state = initialState;
+  const apiKey = localStorage.getItem("apiKey");
+  if (apiKey) {
+    state.apiKey = apiKey;
+  }
+  const cost = localStorage.getItem("cost");
+  if (cost) {
+    state.cost = parseInt(cost);
+  }
+  return state;
+};
+
 interface KeyStore {
   apiKey: string;
   setApiKey: (value: string) => void;
@@ -13,6 +26,7 @@ interface KeyStore {
   setApiKeyError: (value: boolean) => void;
   cost: number;
   setCost: (value: number) => void;
+  loadState: () => void;
   resetState: () => void;
 }
 
@@ -24,6 +38,7 @@ const useKeyStore = create<KeyStore>((set) => ({
   setApiKeyError: (value: boolean) => set({ apiKeyError: value }),
   cost: initialState.cost,
   setCost: (value: number) => set({ cost: value }),
+  loadState: () => set(loadState()),
   resetState: () => set(initialState),
 }));
 

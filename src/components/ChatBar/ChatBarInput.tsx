@@ -1,34 +1,57 @@
 'use client';
 
-import useApi from "~/hooks/useApi";
 import useChatStore from "~/store/chatStore";
 import useKeyStore from "~/store/keyStore";
 import useThreadStore from "~/store/threadStore";
+import { useMutation } from "@tanstack/react-query";
+import { type Message } from "~/types/appstate";
+import { Configuration, OpenAIApi } from "openai";
 
 const ChatBarInput = () => {
-  const { message, setMessage, isLoading } = useChatStore()
+  const { message, setMessage } = useChatStore()
   const apiKey = useKeyStore(state => state.apiKey)
   const currentThread = useThreadStore(state => state.currentThread)
-  const { mutate } = useApi()
+  const setCurrentThread = useThreadStore(state => state.setCurrentThread)
 
-  const sendMessage = () => {
-    if (message.trim() === '') {
+
+  const { isLoading, data, error, mutate } = useMutation(
+    {
+      mutationFn: async ({ apiKey, messages, model }:
+        { apiKey: string, messages: Message[], model: string }
+      ) => {
+        const configuration = new Configuration({
+          apiKey: apiKey,
+        });
+        const openai = new OpenAIApi(configuration);
+        const response = await openai.createChatCompletion({
+          messages, model
+        }).catch((err) => {
+          console.log(err)
+        })
+
+      },
+      onSuccess: (data) => {
+        console.log(data)
+      }
+    }
+  )
+
+  const handleSendMessage = () => {
+    if (!apiKey) {
+      return
+    }
+    if (message.length === 0) {
       return
     }
     if (currentThread) {
       mutate({
         apiKey,
-        messages: [
-          ...currentThread.messages,
-          {
-            role: 'user',
-            content: message,
-          }],
-        model: currentThread.model.id,
+        messages: currentThread.messages,
+        model: currentThread.model.id
       })
     }
-    setMessage('')
   }
+
 
   return (
     <div className="relative w-full">
@@ -43,8 +66,8 @@ const ChatBarInput = () => {
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage()
+            e.preventDefault()
+            handleSendMessage()
           }
         }}
       />
