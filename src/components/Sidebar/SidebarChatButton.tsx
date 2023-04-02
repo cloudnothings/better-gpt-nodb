@@ -9,6 +9,8 @@ import { classNames } from "~/lib/tools";
 
 const SidebarChatButton = (props: Thread & { selected: boolean }) => {
   const setCurrentThread = useThreadStore((state) => state.setCurrentThread)
+  const threads = useThreadStore((state) => state.threads)
+  const setThreads = useThreadStore((state) => state.setThreads)
   const starThreadHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation()
     setCurrentThread({ ...props, starred: !props.starred })
@@ -19,6 +21,13 @@ const SidebarChatButton = (props: Thread & { selected: boolean }) => {
     e.stopPropagation()
     // deleteThread({ ...props })
     // setProfile({ ...profile, threadIds: profile.threadIds.filter(id => id !== props.id) })
+    threads.splice(threads.findIndex(thread => thread.id === props.id), 1)
+    if (props.selected) {
+      setCurrentThread(null)
+    }
+    setThreads(threads)
+    localStorage.setItem('threads', JSON.stringify(threads))
+
   }
   const selectHandler = () => {
     if (props.selected) return
@@ -48,22 +57,22 @@ const SidebarChatButton = (props: Thread & { selected: boolean }) => {
               <button className="text-gray-500 hover:text-white transiton-all">
                 <PencilSquareIcon className="w-6 h-6 sm:w-4 sm:h-4" />
               </button>
-              <button className="text-gray-500 hover:text-white transiton-all"
+              <div className="text-gray-500 hover:text-white transiton-all"
               >
                 {!deleting &&
                   <button className="text-gray-500 hover:text-white transiton-all"
-                    onClick={() => console.log("delete")}
+                    onClick={() => setDeleting(true)}
                   >
                     <TrashIcon className="w-6 h-6 sm:w-4 sm:h-4" />
                   </button>
                 }
                 {deleting &&
-                  <button className="text-red-500 hover:text-white transiton-all"
+                  <button className="text-red-500 hover:text-red-700 transiton-all"
                     onClick={deleteHandler}>
                     <TrashIcon className="w-6 h-6 sm:w-4 sm:h-4" />
                   </button>
                 }
-              </button>
+              </div>
             </div>
           </div>
         </div>

@@ -75,6 +75,8 @@ export const initialState = {
       note: "you need API Access to GPT-4 to use this model. If you haven't already, join the waitlist here: https://openai.com/waitlist/gpt-4-api",
     },
   ] as Model[],
+  defaultSystemMessage:
+    "You are ChatGPT, a powerful and helpful AI created by OpenAI.",
   width: 0,
 };
 
@@ -92,14 +94,20 @@ const loadState = () => {
   if (width) {
     state.width = parseInt(width);
   }
+  const defaultSystemMessage = localStorage.getItem("defaultSystemMessage");
+  if (defaultSystemMessage) {
+    state.defaultSystemMessage = defaultSystemMessage;
+  }
   return state;
 };
 
 interface AppStore {
   defaultModel: Model;
+  defaultSystemMessage: string;
   models: Model[];
   width: number;
   setDefaultModel: (model: Model) => void;
+  setDefaultSystemMessage: (message: string) => void;
   setModels: (models: Model[]) => void;
   setWidth: (width: number) => void;
   loadState: () => void;
@@ -109,6 +117,9 @@ const useAppStore = create<AppStore>((set) => ({
   ...initialState,
   defaultModel: initialState.defaultModel,
   setModels: (models: Model[]) => set({ models }),
+  defaultSystemMessage: initialState.defaultSystemMessage,
+  setDefaultSystemMessage: (message: string) =>
+    set({ defaultSystemMessage: message }),
   models: initialState.models,
   setDefaultModel: (model: Model) => set({ defaultModel: model }),
   width: initialState.width,

@@ -12,6 +12,7 @@ interface ThreadStore {
   threads: Thread[];
   setThreads: (value: Thread[]) => void;
   loadState: () => void;
+  resetThread: () => void;
   resetState: () => void;
 }
 const loadState = () => {
@@ -20,10 +21,10 @@ const loadState = () => {
   if (threads) {
     state.threads = JSON.parse(threads) as Thread[];
   }
-  const currentThread = localStorage.getItem("currentThread");
-  if (currentThread) {
-    state.currentThread = JSON.parse(currentThread) as Thread;
-  }
+  // const currentThread = localStorage.getItem("currentThread");
+  // if (currentThread) {
+  //   state.currentThread = JSON.parse(currentThread) as Thread;
+  // }
   return state;
 };
 const useThreadStore = create<ThreadStore>((set) => ({
@@ -33,6 +34,7 @@ const useThreadStore = create<ThreadStore>((set) => ({
   threads: initialState.threads,
   setThreads: (value: Thread[]) => set({ threads: value }),
   loadState: () => set(loadState()),
+  resetThread: () => set({ currentThread: initialState.currentThread }),
   resetState: () => set(initialState),
 }));
 
