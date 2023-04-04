@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import ChatBarInput from "./ChatBarInput";
 import PromptSettingsButton from "./PromptSettingsButton";
-import SendMessageButton from "./SendMessageButton";
 import VoiceInputButton from "./VoiceInputButton";
 import ChatBarInputSkeleton from "./ChatBarInputSkeleton";
 import PromptSettingsButtonSkeleton from "./PromptSettingsButtonSkeleton";
@@ -16,7 +15,6 @@ const ChatBarInputs = () => {
       <Suspense fallback={<ChatBarInputSkeleton />}>
         <ChatBarInput />
       </Suspense>
-      <SendMessageButton />
       <Suspense fallback={<VoiceInputButtonSkeleton />}>
         <VoiceInputButton />
       </Suspense>
