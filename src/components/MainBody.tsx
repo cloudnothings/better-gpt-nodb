@@ -1,4 +1,5 @@
 
+import useThreadStore from "~/store/threadStore";
 import ResizeColumn from "./Buttons/ResizeColumn";
 import ChatBar from "./ChatBar/ChatBar";
 import FeatureButtonRow from "./FeatureButtonRow";
@@ -8,14 +9,14 @@ import ProductSplash from "./ProductSplash";
 import Warnings from "./Warnings";
 
 const MainBody = () => {
-
+  const currentThread = useThreadStore(state => state.currentThread)
   return (
     <div className="relative" >
       <ResizeColumn />
       <ProductContainer>
         <ProductSplash />
         <MessageWindow />
-        <FeatureButtonRow />
+        {!currentThread && <FeatureButtonRow />}
         <Warnings />
       </ProductContainer>
       <ChatBar />

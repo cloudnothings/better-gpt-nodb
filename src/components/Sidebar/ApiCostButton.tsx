@@ -10,12 +10,12 @@ const ApiCostButton = () => {
   const cost = useKeyStore(state => state.cost)
   return (
     <div>
-      <button className="bg-gray-600 text-white group flex items-center justify-center rounded-md px-2 py-1 text-xs font-medium w-full hover:bg-gray-500 transition-all space-x-1"
+      <button className="bg-gray-600 text-white group flex items-center justify-center rounded-md px-2 py-1 font-medium w-full hover:bg-gray-500 transition-all space-x-1"
         onClick={() => setApiKeyModal(true)}
       >
         {apiKey ? (
           <>
-            <CheckIcon className="mr-2 h-4 w-4 flex-shrink-0 text-green-500" />
+            <CheckIcon className="mr-2 h-6 w-6 flex-shrink-0 text-green-500" />
             <span>
               { // parse as dollars, show hundredth thousandths
                 `$${(cost)}`
