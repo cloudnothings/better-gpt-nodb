@@ -6,15 +6,11 @@ const Logo = () => {
       </svg>
       {/* Logo Text */}
       <div className="font-semibold text-4xl sm:text-5xl text-black dark:text-white">
-        Better
+        Our
         <span className="text-blue-500">
           GPT
         </span>
       </div>
-      {/* Feature Ad */}
-      <span className="bg-gradient-to-r from-green-500 to-cyan-500 px-3 py-1 text-xs font-semibold text-white text-center rounded-xl inline-block ">
-        GPT-4 Supported!
-      </span>
     </div>
   )
 }

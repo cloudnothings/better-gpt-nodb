@@ -1,3 +1,4 @@
+
 import ResizeColumn from "./Buttons/ResizeColumn";
 import ChatBar from "./ChatBar/ChatBar";
 import FeatureButtonRow from "./FeatureButtonRow";
@@ -7,8 +8,9 @@ import ProductSplash from "./ProductSplash";
 import Warnings from "./Warnings";
 
 const MainBody = () => {
+
   return (
-    <div className="resize-container relative" >
+    <div className="relative" >
       <ResizeColumn />
       <ProductContainer>
         <ProductSplash />

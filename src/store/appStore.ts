@@ -5,7 +5,8 @@ export const initialState = {
   defaultModel: {
     name: "GPT-3.5-TURBO",
     id: "gpt-3.5-turbo",
-    description: "Super fast but not concise.",
+    description:
+      "Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our latest model iteration.",
     maxTokens: 4096,
     usageCost: 0.002,
     trainingData: "Up to Sep 2021",
@@ -47,6 +48,7 @@ export const initialState = {
   defaultSystemMessage:
     "You are ChatGPT, a powerful and helpful AI created by OpenAI.",
   width: 0,
+  showSidebar: false,
 };
 
 const loadState = () => {
@@ -63,6 +65,10 @@ const loadState = () => {
   if (width) {
     state.width = parseInt(width);
   }
+  const showSidebar = localStorage.getItem("showSidebar");
+  if (showSidebar) {
+    state.showSidebar = showSidebar === "true";
+  }
   const defaultSystemMessage = localStorage.getItem("defaultSystemMessage");
   if (defaultSystemMessage) {
     state.defaultSystemMessage = defaultSystemMessage;
@@ -75,10 +81,12 @@ interface AppStore {
   defaultSystemMessage: string;
   models: Model[];
   width: number;
+  showSidebar: boolean;
   setDefaultModel: (model: Model) => void;
   setDefaultSystemMessage: (message: string) => void;
   setModels: (models: Model[]) => void;
   setWidth: (width: number) => void;
+  setShowSidebar: (show: boolean) => void;
   loadState: () => void;
 }
 
@@ -93,6 +101,8 @@ const useAppStore = create<AppStore>((set) => ({
   setDefaultModel: (model: Model) => set({ defaultModel: model }),
   width: initialState.width,
   setWidth: (width: number) => set({ width }),
+  showSidebar: initialState.showSidebar,
+  setShowSidebar: (show: boolean) => set({ showSidebar: show }),
   loadState: () => set(loadState()),
 }));
 

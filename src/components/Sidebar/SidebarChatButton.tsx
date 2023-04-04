@@ -34,7 +34,7 @@ const SidebarChatButton = (props: Thread & { selected: boolean }) => {
     setCurrentThread({ ...props })
   }
   return (
-    <div role="button" onClick={selectHandler}>
+    <div onClick={selectHandler}>
       <div className="select-none lg:select-auto touch-manipulation">
         <div className={classNames(props?.selected ? "bg-gray-900" : "hover:bg-gray-700 hover:text-white", " text-white group flex items-center text-sm font-medium w-full space-x-2 justify-between overflow-hidden")}>
           <div className="flex items-center justify-start gap-x-2 min-w-0 w-full px-2 py-2 text-sm group cursor-pointer">
