@@ -11,8 +11,8 @@ export default function ProductSplash() {
   const [parent] = useAutoAnimate()
   const currentThread = useThreadStore(state => state.currentThread)
   return (
-    <div ref={parent} className={classNames(currentThread ? 'flex-row justify-between' : 'flex-col items-center justify-center', "transition-all p-6 sm:p-10 duration-300 flex")}>
-      <div className="self-start">
+    <div ref={parent} className={classNames(currentThread ? 'flex-row justify-between' : 'flex-col items-center justify-center', " p-6 sm:p-10 flex")}>
+      <div>
         <Logo />
         <div className="text-center font-light text-base sm:text-xl whitespace-nowrap my-4 sm:my-2 text-black dark:text-white">
           An open source UI for ChatGPT
