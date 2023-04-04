@@ -35,7 +35,7 @@ const AIResponse = ({ content }: { content: string }) => {
 const UserSubmission = ({ content }: { content: string }) => {
   return (
     <div>
-      <div className="text-sm whitespace-pre-wrap space-y-2 w-fit text-white px-4 py-2 rounded-lg max-w-full overflow-auto highlight-darkblue focus:outline bg-blue-500">
+      <div className="text-sm break-words text-ellipsis space-y-2 w-fit text-white px-4 py-2 rounded-lg max-w-full overflow-auto highlight-darkblue focus:outline bg-blue-500">
         {content}
       </div>
     </div>
