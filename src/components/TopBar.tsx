@@ -8,11 +8,11 @@ const TopBar = () => {
           <Bars3Icon />
         </button>
       </div>
-      <div className="absolute right-2 top-0 bottom-0 flex items-center justify-center" >
+      {/* <div className="absolute right-2 top-0 bottom-0 flex items-center justify-center" >
         <button className="inline-flex items-center justify-center rounded-md text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 py-2 px-2 space-x-2 text-sm">
           <GiftIcon className="h-6 w-6 text-red-500" />
         </button>
-      </div>
+      </div> */}
       <div className="flex items-center justify-center w-full p-2 border-bottom-2 border-gray-200 shadow-bottom flex-col min-w-0">
         <div className="font-semibold truncate w-full text-center px-12 text-black dark:text-white">New Chat</div>
         <div className="text-xs text-gray-400">Start a new chat</div>

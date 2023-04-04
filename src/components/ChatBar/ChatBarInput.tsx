@@ -8,8 +8,10 @@ import { type Thread, type Message } from "~/types/appstate";
 import { nanoid } from 'nanoid';
 import { Configuration, OpenAIApi } from "openai";
 import useAppStore from "~/store/appStore";
+import { useCallback, useEffect, useRef } from "react";
 
 const ChatBarInput = () => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { message, setMessage } = useChatStore()
   const apiKey = useKeyStore(state => state.apiKey)
   const currentThread = useThreadStore(state => state.currentThread)
@@ -18,7 +20,15 @@ const ChatBarInput = () => {
   const setThreads = useThreadStore(state => state.setThreads)
   const systemMessage = useAppStore(state => state.defaultSystemMessage)
   const defaultModel = useAppStore(state => state.defaultModel)
-
+  const resizeTextarea = useCallback((textarea: HTMLTextAreaElement) => {
+    textarea.style.height = 'auto'; // Reset the height to allow re-calculation
+    textarea.style.height = !message ? '40px' : `${textarea.scrollHeight}px`;
+  }, [message])
+  useEffect(() => {
+    if (textareaRef.current) {
+      resizeTextarea(textareaRef.current);
+    }
+  }, [resizeTextarea]);
   const { isLoading, mutate } = useMutation({
     mutationFn: async ({ apiKey, messages, model }:
       { apiKey: string, messages: Message[], model: string }
@@ -126,13 +136,16 @@ const ChatBarInput = () => {
   return (
     <div className="relative w-full">
       <textarea
+        ref={textareaRef}
         placeholder="Your message here..."
-        className="relative block w-full h-10 rounded-md p-2 border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:py-1.5 sm:text-sm sm:leading-6 min-h-[36px] max-h-[500px] resize-none dark:bg-zinc-600 dark:text-white dark:ring-gray-500 dark:focus:ring-blue-500"
-        value={message}
+        className='relative block w-full rounded-md p-2 border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:py-1.5 sm:text-sm sm:leading-6  max-h-[500px] resize-none overflow-auto dark:bg-zinc-600 dark:text-white dark:ring-gray-500 dark:focus:ring-blue-500' value={message}
         disabled={isLoading}
         onChange={(e) => {
           setMessage(e.target.value)
           console.log(e.target.value)
+          if (textareaRef.current) {
+            resizeTextarea(textareaRef.current);
+          }
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
