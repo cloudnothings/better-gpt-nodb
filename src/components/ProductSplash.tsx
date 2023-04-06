@@ -9,6 +9,7 @@ import { classNames } from "~/lib/tools";
 
 export default function ProductSplash() {
   const [parent] = useAutoAnimate()
+
   const currentThread = useThreadStore(state => state.currentThread)
   return (
     <div ref={parent} className={classNames(currentThread ? 'flex-row justify-between' : 'flex-col items-center justify-center', " p-6 sm:p-10 flex")}>
@@ -21,7 +22,7 @@ export default function ProductSplash() {
       {currentThread &&
         <div className="flex flex-col rounded-md border px-2 m-2 font-light text-base sm:text-xl text-black dark:text-white">
           <span>Conversation info</span>
-          <span className="text-sm">Model: GPT-4</span>
+          <span className="text-sm">Model: {currentThread.model.name}</span>
         </div>
       }
       {!currentThread && <FeatureList />}
